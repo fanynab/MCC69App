@@ -1,21 +1,20 @@
-﻿using API.Repositories.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models
+namespace MCC69_App.Models
 {
-    public class Country : IEntity
+    public class Department
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual Region Region { get; set; }
-        [ForeignKey("Region")]
-        public int Region_Id { get; set; }
+        public virtual Location Location { get; set; }
+        [ForeignKey("Location")]
+        public int Location_Id { get; set; }
     }
 }

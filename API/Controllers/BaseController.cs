@@ -1,4 +1,5 @@
 ﻿using API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,8 +11,9 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BaseController<Repository, Entity, Primary> : ControllerBase
-        where Entity : class
+        where Entity : class, IEntity
         where Repository : IGeneralRepository<Entity, Primary>
     {
         Repository repository;
@@ -23,6 +25,7 @@ namespace API.Controllers
 
         //GET
         [HttpGet]
+        //[AllowAnonymous]
         public IActionResult Get()
         {
             var data = repository.Get();
@@ -59,21 +62,33 @@ namespace API.Controllers
 
         //PUT
         [HttpPut("{id}")]
-        public IActionResult Put(Primary id, Entity entity)
+        //[AllowAnonymous]
+        public IActionResult Put(int id, Entity entity)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(id.ToString()))
+            {
+                return BadRequest();
+            }
+            var result = repository.Put(id, entity);
+            if (result > 0)
+                return Ok(new { result = 200, message = "data successfully updated" });
+            else if (result == -1)
+                return NotFound();
+            return BadRequest();
+            /*if (ModelState.IsValid)
             {
                 //var data = Get(id);
                 var result = repository.Put(id, entity);
                 if (result > 0)
                     return Ok(new { result = 200, message = "data successfully updated" });
             }
-            return BadRequest();
+            return BadRequest();*/
         }
 
 
         //DELETE
         [HttpDelete("{id}")]
+        //[AllowAnonymous]
         public IActionResult Delete(Primary id)
         {
             if (string.IsNullOrWhiteSpace(id.ToString()))
@@ -82,17 +97,10 @@ namespace API.Controllers
             }
             var result = repository.Delete(id);
             if (result > 0)
-            {
                 return Ok(new { status = 200, message = "data successfully deleted" });
-            }
             else if (result == -1)
-            {
                 return NotFound();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
     }
 }

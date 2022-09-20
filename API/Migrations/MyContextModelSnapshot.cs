@@ -210,11 +210,6 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Employee_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -224,8 +219,6 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Employee_Id");
 
                     b.ToTable("Users");
                 });
@@ -323,7 +316,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("Employee_Id")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

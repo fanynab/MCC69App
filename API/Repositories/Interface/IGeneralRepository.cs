@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 namespace API.Repositories.Interface
 {
     public interface IGeneralRepository<Entity, Primary>
-        where Entity : class
+        where Entity : class, IEntity
     {
         List<Entity> Get();
         Entity Get(Primary id);
         int Post(Entity entity);
-        int Put(Primary id, Entity entity);
+        int Put(int id, Entity entity);
         int Delete(Primary id);
     }
 }

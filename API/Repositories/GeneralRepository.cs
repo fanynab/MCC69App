@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace API.Repositories
 {
     public class GeneralRepository<Entity, Primary> : IGeneralRepository<Entity, Primary>
-        where Entity : class
+        where Entity : class, IEntity
     {
         MyContext myContext;
 
@@ -45,9 +45,18 @@ namespace API.Repositories
 
 
         //PUT
-        public int Put(Primary id, Entity entity)
+        public int Put(int id, Entity entity)
         {
-            myContext.Entry(entity).State = EntityState.Modified;
+            var data = myContext.Set<Entity>().Find(id);
+            if (data == null)
+            {
+                return -1;
+            }
+
+            entity.Id = id;
+
+            myContext.Entry(data).CurrentValues.SetValues(entity);
+            //myContext.Entry(entity).State = EntityState.Modified;
             var result = myContext.SaveChanges();
             return result;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Repositories.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class Employee
+    public class Employee : IEntity
     {
         [Key]
         public int Id { get; set; }

@@ -1,4 +1,5 @@
 //using MCC69_App.Context;
+using API.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,8 +27,10 @@ namespace MCC69_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            /*services.AddDbContext<MyContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("connection")));*/
+            services.AddDbContext<MyContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("connection")));
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +48,8 @@ namespace MCC69_App
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
