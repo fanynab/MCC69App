@@ -1,7 +1,9 @@
-//using MCC69_App.Context;
 using API.Context;
+using API.Middleware;
+using MCC69_App.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +32,19 @@ namespace MCC69_App
             services.AddDbContext<MyContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("connection")));
 
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<RegionRepository>();
+            services.AddScoped<CountryRepository>();
+            services.AddScoped<LocationRepository>();
+            services.AddScoped<DepartmentRepository>();
+            services.AddScoped<JobRepository>();
+            services.AddScoped<JobHistoryRepository>();
+            services.AddScoped<EmployeeRepository>();
+
             services.AddSession();
+
+            //services.AddTokenAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,9 +63,11 @@ namespace MCC69_App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseRouting();
+
             app.UseSession();
 
-            app.UseRouting();
+            //app.UseAuthentication();
 
             app.UseAuthorization();
 

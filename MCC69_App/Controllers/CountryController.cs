@@ -1,7 +1,5 @@
 ﻿using API.Models;
 using MCC69_App.Repositories.Data;
-using MCC69_App.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -12,58 +10,63 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
-    public class RegionController : BaseController<Region, RegionRepository>
+    public class CountryController : BaseController<Country, CountryRepository>
     {
-        public RegionController(RegionRepository repository) : base(repository)
-        {
+        RegionRepository regionRepository;
 
+        public CountryController(CountryRepository countryRepository, RegionRepository regionRepository) : base(countryRepository)
+        {
+            this.regionRepository = regionRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var region = await Get();
-            return View(region.AsEnumerable());
+            var country = await Get();
+            return View(country.AsEnumerable());
         }
 
 
         //CREATE
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var region = await regionRepository.Get();
+            ViewBag.Region = new SelectList(region.AsEnumerable(), "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Region region)
+        public IActionResult Create(Country country)
         {
-            var result = Post(region);
+            var result = Post(country);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(country);
         }
 
 
         //EDIT
         public async Task<IActionResult> Edit(int id)
         {
+            var region = await regionRepository.Get();
+            ViewBag.Region = new SelectList(region.AsEnumerable(), "Id", "Name");
             var result = await Get(id);
             return View(result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Region region)
+        public IActionResult Edit(int id, Country country)
         {
-            var result = Put(id, region);
+            var result = Put(id, country);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(country);
         }
-
 
         //DELETE
         public IActionResult Delete(int id)
@@ -74,14 +77,14 @@ namespace MCC69_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Region region)
+        public IActionResult Delete(Country country)
         {
-            var result = DeleteEntity(region);
+            var result = DeleteEntity(country);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(country);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,31 @@ namespace API.Middleware
 {
     public static class AuthenticationExtension
     {
+        /*public static void AddTokenAuthentication(this IServiceCollection self, IConfiguration configuration)
+        {
+            // JWT
+            var key = configuration["JWTConfigs:Key"];
+            self.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+            self.AddSingleton<IJWTHandler>(new JwtService(key, configuration));
+        }*/
+
         public static IServiceCollection AddTokenAuthentication(this IServiceCollection services, IConfiguration config)
         {
             var secret = config.GetSection("JwtConfig").GetSection("secret").Value;

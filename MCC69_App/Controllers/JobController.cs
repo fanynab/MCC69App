@@ -1,9 +1,6 @@
 ﻿using API.Models;
 using MCC69_App.Repositories.Data;
-using MCC69_App.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
-    public class RegionController : BaseController<Region, RegionRepository>
+    public class JobController : BaseController<Job, JobRepository>
     {
-        public RegionController(RegionRepository repository) : base(repository)
+        public JobController(JobRepository repository) : base(repository)
         {
 
         }
 
         public async Task<IActionResult> Index()
         {
-            var region = await Get();
-            return View(region.AsEnumerable());
+            var job = await Get();
+            return View(job.AsEnumerable());
         }
 
 
@@ -34,14 +31,14 @@ namespace MCC69_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Region region)
+        public IActionResult Create(Job job)
         {
-            var result = Post(region);
+            var result = Post(job);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(job);
         }
 
 
@@ -54,14 +51,14 @@ namespace MCC69_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Region region)
+        public IActionResult Edit(int id, Job job)
         {
-            var result = Put(id, region);
+            var result = Put(id, job);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(job);
         }
 
 
@@ -74,14 +71,14 @@ namespace MCC69_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Region region)
+        public IActionResult Delete(Job job)
         {
-            var result = DeleteEntity(region);
+            var result = DeleteEntity(job);
             if (result == HttpStatusCode.OK)
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(job);
         }
     }
 }

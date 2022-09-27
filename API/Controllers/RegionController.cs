@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    //[Authorize]
     public class RegionController : BaseController<RegionRepository, Region, int>
     {
         public RegionController(RegionRepository regionRepository) : base(regionRepository)
