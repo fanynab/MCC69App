@@ -16,10 +16,15 @@ namespace MCC69_App.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var job = await Get();
             return View(job.AsEnumerable());
+        }*/
+        public IActionResult Index()
+        {
+            var employee = GetAll();
+            return View(employee);
         }
 
 

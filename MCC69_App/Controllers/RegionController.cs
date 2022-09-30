@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
+    [Authorize]
     public class RegionController : BaseController<Region, RegionRepository>
     {
         public RegionController(RegionRepository repository) : base(repository)
@@ -19,10 +20,14 @@ namespace MCC69_App.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
-            var region = await Get();
+            var region = await GetAll();
             return View(region.AsEnumerable());
+        }*/
+        public IActionResult Index()
+        {
+            return View();
         }
 
 

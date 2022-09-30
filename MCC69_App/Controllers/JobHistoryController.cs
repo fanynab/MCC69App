@@ -23,19 +23,24 @@ namespace MCC69_App.Controllers
             this.departmentRepository = departmentRepository;
         }
 
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var jobHistory = await Get();
             return View(jobHistory.AsEnumerable());
+        }*/
+        public IActionResult Index()
+        {
+            var employee = GetAll();
+            return View(employee);
         }
 
 
         //CREATE
         public async Task<IActionResult> Create()
         {
-            var department = await departmentRepository.Get();
-            var employee = await employeeRepository.Get();
-            var job = await jobRepository.Get();
+            var department = await departmentRepository.GetAll();
+            var employee = await employeeRepository.GetAll();
+            var job = await jobRepository.GetAll();
             ViewData["Department_Id"] = new SelectList(department.AsEnumerable(), "Id", "Name");
             ViewData["Id"] = new SelectList(employee.AsEnumerable(), "Id", "Id");
             ViewData["Job_Id"] = new SelectList(job.AsEnumerable(), "Id", "JobTitle");
@@ -59,8 +64,8 @@ namespace MCC69_App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var result = await Get(id);
-            var department = await departmentRepository.Get();
-            var job = await jobRepository.Get();
+            var department = await departmentRepository.GetAll();
+            var job = await jobRepository.GetAll();
             //var employee = await Get();
             ViewData["Department_Id"] = new SelectList(department.AsEnumerable(), "Id", "Id", result.Department_Id);
             //ViewData["Id"] = new SelectList(httpAPIEmployees.Get().ToList(), "Id", "Id", jobHistory.Id);

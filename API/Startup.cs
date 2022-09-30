@@ -111,7 +111,7 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors("DefaultPolicy");
+            //app.UseCors("DefaultPolicy");
 
             //app.UseSession();
 

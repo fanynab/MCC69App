@@ -44,7 +44,7 @@ namespace MCC69_App.Repositories
         }
 
         //GET ALL
-        public async Task<List<Entity>> Get()
+        public async Task<List<Entity>> GetAll()
         {
             Json<Entity> entities = new Json<Entity>();
 
@@ -55,6 +55,17 @@ namespace MCC69_App.Repositories
             }
             return entities.data;
         }
+        /*public async Task<List<Entity>> GetAll()
+        {
+            List<Entity> entities = new List<Entity>();
+
+            using (var response = await httpClient.GetAsync(request))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<Entity>>(apiResponse);
+            }
+            return entities;
+        }*/
 
         //GET BY ID
         public async Task<Entity> Get(int? id)

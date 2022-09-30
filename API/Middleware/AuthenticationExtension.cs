@@ -13,29 +13,32 @@ namespace API.Middleware
 {
     public static class AuthenticationExtension
     {
-        /*public static void AddTokenAuthentication(this IServiceCollection self, IConfiguration configuration)
+        /*public static void AddTokenAuthentication(this IServiceCollection services, IConfiguration Configuration)
         {
             // JWT
-            var key = configuration["JWTConfigs:Key"];
-            self.AddAuthentication(x =>
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+                //var Key = Encoding.UTF8.GetBytes(Configuration["JWT:Key"]);
+                var key = Encoding.ASCII.GetBytes(secret);
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    ValidAudience = Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Key),
                     ClockSkew = TimeSpan.Zero
                 };
+                services.AddSingleton<IJWTHandler>(new JwtService(Configuration));
             });
-            self.AddSingleton<IJWTHandler>(new JwtService(key, configuration));
         }*/
 
         public static IServiceCollection AddTokenAuthentication(this IServiceCollection services, IConfiguration config)
@@ -50,11 +53,14 @@ namespace API.Middleware
             })
             .AddJwtBearer(x =>
             {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
                     ValidIssuer = "localhost",
                     ValidAudience = "localhost"
                 };

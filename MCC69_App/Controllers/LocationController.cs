@@ -19,17 +19,22 @@ namespace MCC69_App.Controllers
             this.countryRepository = countryRepository;
         }
 
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var location = await Get();
             return View(location.AsEnumerable());
+        }*/
+        public IActionResult Index()
+        {
+            var employee = GetAll();
+            return View(employee);
         }
 
 
         //CREATE
         public async Task<IActionResult> Create()
         {
-            var country = await countryRepository.Get();
+            var country = await countryRepository.GetAll();
             ViewBag.Country = new SelectList(country.AsEnumerable(), "Id", "Name");
             return View();
         }
@@ -50,7 +55,7 @@ namespace MCC69_App.Controllers
         //EDIT
         public async Task<IActionResult> Edit(int id)
         {
-            var country = await countryRepository.Get();
+            var country = await countryRepository.GetAll();
             ViewBag.Country = new SelectList(country.AsEnumerable(), "Id", "Name");
             var result = await Get(id);
             return View(result);

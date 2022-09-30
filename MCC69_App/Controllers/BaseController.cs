@@ -23,10 +23,15 @@ namespace MCC69_App.Controllers
 
         //GET ALL
         [HttpGet]
-        public async Task<List<TEntity>> Get()
+        /*public async Task<List<TEntity>> GetAll()
         {
             var result = await repository.Get();
             return result;
+        }*/
+        public async Task<JsonResult> GetAll()
+        {
+            var result = await repository.GetAll();
+            return Json(result);
         }
 
         //GET BY ID

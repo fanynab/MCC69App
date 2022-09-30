@@ -21,47 +21,35 @@ namespace API.Services
 
     public class JwtService : IJWTHandler
     {
-        private readonly IConfiguration configuration;
-        private readonly string key;
-
-        public JwtService(string key, IConfiguration configuration)
+        private readonly IConfiguration iconfiguration;
+        public JwtService(IConfiguration iconfiguration)
         {
-            this.key = key;
-            this.configuration = configuration;
+            this.iconfiguration = iconfiguration;
         }
-
         public string GenerateToken(Account account)
         {
-            double tokenExpire = configuration.GetValue<double>("JWTConfigs:Expire");
-
             if (account == null)
             {
                 return null;
             }
-
-            var subject = new ClaimsIdentity(new Claim[] {
-                new Claim("id", account.Id.ToString()),
-                new Claim("name", account.Name),
-                new Claim(ClaimTypes.Email, account.Email),
-            });
-
             var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.ASCII.GetBytes(key);
+            //var tokenKey = Encoding.UTF8.GetBytes(iconfiguration["JWT:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = subject,
-                Expires = DateTime.UtcNow.AddMinutes(tokenExpire),
-                SigningCredentials =
-                new SigningCredentials
-                (
-                    new SymmetricSecurityKey(tokenKey),
-                    SecurityAlgorithms.HmacSha256Signature
-                )
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier,account.Id.ToString()),
+                    new Claim(ClaimTypes.Email, account.Email),
+                    new Claim(ClaimTypes.Name, account.Name),
+                    new Claim(ClaimTypes.Role, account.Role)
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                //SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
 
+        }
         public string GetName(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
