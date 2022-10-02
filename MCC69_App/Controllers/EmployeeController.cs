@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
-    [Authorize(Roles = "Admin, Member")]
+    //[Authorize(Roles = "Admin, Member")]
+    [Authorize]
     public class EmployeeController : BaseController<Employee, EmployeeRepository>
     {
         DepartmentRepository departmentRepository;
@@ -35,7 +36,7 @@ namespace MCC69_App.Controllers
 
 
         //CREATE
-        public async Task<IActionResult> Create()
+        /*public async Task<IActionResult> Create()
         {
             var department = await departmentRepository.GetAll();
             var job = await jobRepository.GetAll();
@@ -102,6 +103,6 @@ namespace MCC69_App.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
-        }
+        }*/
     }
 }

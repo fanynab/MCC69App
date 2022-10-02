@@ -18,6 +18,7 @@
     "MCC69_App": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "Account",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

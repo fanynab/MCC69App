@@ -32,7 +32,7 @@ namespace MCC69_App.Controllers
 
 
         //CREATE
-        public async Task<IActionResult> Create()
+        /*public async Task<IActionResult> Create()
         {
             var location = await locationRepository.GetAll();
             ViewBag.Location = new SelectList(location.AsEnumerable(), "Id", "Name");
@@ -91,6 +91,6 @@ namespace MCC69_App.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(department);
-        }
+        }*/
     }
 }

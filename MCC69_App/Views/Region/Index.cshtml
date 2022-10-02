@@ -7,7 +7,7 @@
 <div class="container">
     <h1 align="center">Region Data</h1>
     <p>
-        <a class="btn btn-default" data-toggle="modal" data-target="#ModalData" onclick="Create()">Create New</a>
+        <a class="btn btn-default" data-toggle="modal" data-target="#modalRegion" onclick="Create()">Create New</a>
     </p>
     <div id="container-body">
         <table class="table table-hover" id="dataTable">
@@ -22,6 +22,35 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="modalRegion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Region</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Name</label>
+                                <input class="form-control" id="inputName" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" id="buttonRegion" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @*<h1>Index</h1>
 

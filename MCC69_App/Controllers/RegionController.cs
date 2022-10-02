@@ -32,7 +32,7 @@ namespace MCC69_App.Controllers
 
 
         //CREATE
-        public IActionResult Create()
+        /*public IActionResult Create()
         {
             return View();
         }
@@ -47,11 +47,11 @@ namespace MCC69_App.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(region);
-        }
+        }*/
 
 
         //EDIT
-        public async Task<IActionResult> Edit(int id)
+        /*public async Task<IActionResult> Edit(int id)
         {
             var result = await Get(id);
             return View(result);
@@ -87,6 +87,6 @@ namespace MCC69_App.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(region);
-        }
+        }*/
     }
 }

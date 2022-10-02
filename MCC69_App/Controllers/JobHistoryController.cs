@@ -36,7 +36,7 @@ namespace MCC69_App.Controllers
 
 
         //CREATE
-        public async Task<IActionResult> Create()
+        /*public async Task<IActionResult> Create()
         {
             var department = await departmentRepository.GetAll();
             var employee = await employeeRepository.GetAll();
@@ -103,6 +103,6 @@ namespace MCC69_App.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(jobHistory);
-        }
+        }*/
     }
 }

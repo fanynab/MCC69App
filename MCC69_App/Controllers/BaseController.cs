@@ -44,26 +44,32 @@ namespace MCC69_App.Controllers
 
         //POST
         [HttpPost]
-        public HttpStatusCode Post(TEntity entity)
+        /*public HttpStatusCode Post(TEntity entity)
         {
             var result = repository.Post(entity);
             return result;
+        }*/
+        public JsonResult Post(TEntity entity)
+        {
+            var result = repository.Post(entity);
+            return Json(result);
         }
 
         //PUT
         [HttpPut]
-        public HttpStatusCode Put(int id, TEntity entity)
+        public JsonResult Put(int id, TEntity entity)
         {
             var result = repository.Put(id, entity);
-            return result;
+            return Json(result);
         }
+
 
         //DELETE
         [HttpDelete]
-        public HttpStatusCode DeleteEntity(TEntity entity)
+        public JsonResult Delete(int id)
         {
-            var result = repository.Delete(entity.Id);
-            return result;
+            var result = repository.Delete(id);
+            return Json(result);
         }
     }
 }
