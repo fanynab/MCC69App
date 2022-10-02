@@ -116,6 +116,8 @@ namespace MCC69_App
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseStatusCodePages(async context =>
             {
                 var request = context.HttpContext.Request;
@@ -137,7 +139,18 @@ namespace MCC69_App
                 }
             });
 
-            app.UseSession();
+            app.Use(async (HttpContext context, Func<Task> next) =>
+            {
+                var token = context.Session.GetString("Token");
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Request.Headers.Add("Authorization", "Bearer " + token.ToString());
+                }
+
+                await next();
+
+            });
+
 
             app.UseAuthentication();
 

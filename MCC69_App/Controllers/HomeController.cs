@@ -40,10 +40,10 @@ namespace MCC69_App.Controllers
         {
             return View("Forbidden");
         }
-        /*public IActionResult Unauth()
+        public IActionResult Unauth()
         {
             return View("Unauthorized");
-        }*/
+        }
         public IActionResult NotFound404()
         {
             return View("NotFound");
