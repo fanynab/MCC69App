@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using MCC69_App.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
+    [Authorize]
     public class DepartmentController : BaseController<Department, DepartmentRepository>
     {
         LocationRepository locationRepository;

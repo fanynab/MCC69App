@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class LocationController : BaseController<LocationRepository, Location, int>
     {
         public LocationController(LocationRepository locationRepository) : base(locationRepository)

@@ -36,11 +36,11 @@ namespace API.Repositories.Data
             return null;
         }
 
-        /*public Employee GetEmployee(string email)
+        public Employee GetEmployee(string email)
         {
             var getEmployee = myContext.Employees.SingleOrDefault(x => x.Email.Equals(email));
             return getEmployee;
-        }*/
+        }
 
         //LOGIN
         public User Login(Login login)
@@ -48,8 +48,8 @@ namespace API.Repositories.Data
             var data = GetUser(login.Email);
             if (data != null)
             {
-                /*if (data.Password == login.Password)
-                    return data;*/
+                if (data.Password == login.Password)
+                    return data;
                 //var registeredUser = myContext.Users.SingleOrDefault(x => x.Employee.Email.Equals(register.Email));
                 //bool validatePassword = BCrypt.Net.BCrypt.Verify(login.Password, data.Password);
                 if (Hashing.ValidatePassword(login.Password, data.Password))
@@ -69,9 +69,9 @@ namespace API.Repositories.Data
             //var roleDefault = myContext.Roles.SingleOrDefault(x => x.Level.Value.Equals(level)).Id;
 
             // check duplicate email
-            /*var checking = myContext.Employees.SingleOrDefault(x => x.Email.Equals(register.Email));
+            var checking = myContext.Employees.SingleOrDefault(x => x.Email.Equals(register.Email));
             if (checking == null)
-                return -1;*/
+                return -1;
 
             if (myContext.Users.Any(x => x.Username == register.Username) || myContext.Employees.Any(x => x.Email == register.Email))
                 return -1;
@@ -98,7 +98,7 @@ namespace API.Repositories.Data
             {
                 // -> preparation assigning role
                 var registeredEmployee = myContext.Employees.SingleOrDefault(x => x.Email.Equals(register.Email)).Id;
-                
+
                 //var getRandomSalt = BCrypt.Net.BCrypt.GenerateSalt(12);
 
                 //var password = Hashing.HashPassword(register.Password);

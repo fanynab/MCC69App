@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class JobController : BaseController<JobRepository, Job, int>
     {
         public JobController(JobRepository jobRepository) : base(jobRepository)

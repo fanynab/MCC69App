@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
-    //[Authorize(Roles = "Admin, Member")]
+    /*[Authorize(Roles = "Admin, Member")]*/
     [Authorize]
     public class EmployeeController : BaseController<Employee, EmployeeRepository>
     {
