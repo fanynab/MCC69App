@@ -7,7 +7,7 @@
 <div class="container">
     <h1 align="center">Employee Data</h1>
     <p>
-        <a class="btn btn-default" data-toggle="create" data-target="#createData" onclick="Create()">Create New</a>
+        <a class="btn btn-default" data-toggle="modal" data-target="#addEmployee" onclick="Create()">Create New</a>
     </p>
     <div class="table-responsive">
         <table class="table" id="dataTable">
@@ -27,6 +27,134 @@
             </thead>
             <tbody id="bodyEmployee"></tbody>
         </table>
+    </div>
+</div>
+
+
+@*CREATE*@
+<div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Employee</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-2">
+                            <label class="control-label">First name</label>
+                            <input type="text" class="form-control" id="addFirstName" />
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="control-label">Last name</label>
+                            <input type="text" class="form-control" id="addLastName" />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input class="form-control" type="email" id="addEmail" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Phone Number</label>
+                                <input class="form-control" id="addPhoneNumber" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Hire Date</label>
+                                <input class="form-control" type="datetime-local" id="addHireDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Salary</label>
+                                <input class="form-control" type="number" id="addSalary" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Job_Id</label>
+                                <input class="form-control" type="number" id="addJobId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Manager_Id</label>
+                                <input class="form-control" type="number" id="addManagerId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Department_Id</label>
+                                <input class="form-control" type="number" id="addDepartmentId" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" id="buttonAdd" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*EDIT*@
+<div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Employee</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-2">
+                            <label class="control-label">First name</label>
+                            <input type="text" class="form-control" id="firstName" />
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="control-label">Last name</label>
+                            <input type="text" class="form-control" id="lastName" />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input class="form-control" type="email" id="email" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Phone Number</label>
+                                <input class="form-control" id="phoneNumber" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Hire Date</label>
+                                <input class="form-control" type="datetime-local" id="hireDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Salary</label>
+                                <input class="form-control" type="number" id="salary" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Job_Id</label>
+                                <input class="form-control" type="number" id="jobId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Manager_Id</label>
+                                <input class="form-control" type="number" id="jmanagerId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Department_Id</label>
+                                <input class="form-control" type="number" id="departmentId" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save Changes" class="btn btn-primary" id="buttonEdit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

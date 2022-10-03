@@ -38,7 +38,7 @@
                 "data": "",
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#modalRegion" onclick="Edit('${row.id}')"></button>
+                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#editRegion" onclick="Edit('${row.id}')"></button>
                             <button type="button" class="btn fa fa-remove btn-default" onclick="Delete('${row.id}')"></button>
                            `;
                 }
@@ -48,11 +48,11 @@
 });
 
 function Create() {
-    let btn = document.getElementById("buttonRegion");
+    let btn = document.getElementById("buttonAdd");
     btn.addEventListener("click", function (e) {
         e.preventDefault();
         let obj = new Object();
-        obj.name = $("#inputName").val();
+        obj.name = $("#addName").val();
         $.ajax({
             url: "/Region/Post",
             type: "POST",
@@ -65,7 +65,7 @@ function Create() {
                     'Your data has been saved.',
                     'success'
                 )
-                $("#modalRegion").modal("toggle");
+                $("#addRegion").modal("toggle");
                 $('#dataTable').DataTable().ajax.reload();
             }
             else if (result == 400) {
@@ -87,13 +87,13 @@ function Edit(id) {
         type: "GET"
     }).done((data) => {
         console.log(data);
-        $("#inputName").val(data.name);
-        let btn = document.getElementById("buttonRegion");
+        $("#editName").val(data.name);
+        let btn = document.getElementById("buttonEdit");
         btn.addEventListener("click", function (e) {
             e.preventDefault();
             let obj = new Object();
             obj.id = id;
-            obj.name = $("#inputName").val();
+            obj.name = $("#editName").val();
             $.ajax({
                 url: "/Region/Put",
                 type: "PUT",
@@ -106,7 +106,7 @@ function Edit(id) {
                         'Your data has been saved.',
                         'success'
                     )
-                    $("#modalRegion").modal("toggle");
+                    $("#editRegion").modal("toggle");
                     $('#dataTable').DataTable().ajax.reload();
                 }
                 else if (result == 400) {
