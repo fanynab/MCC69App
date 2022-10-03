@@ -14,24 +14,22 @@ namespace MCC69_App.Controllers
     [Authorize]
     public class LocationController : BaseController<Location, LocationRepository>
     {
-        CountryRepository countryRepository;
-
-        public LocationController(LocationRepository locationRepository, CountryRepository countryRepository) : base(locationRepository)
+        public LocationController(LocationRepository locationRepository) : base(locationRepository)
         {
-            this.countryRepository = countryRepository;
+            
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /*public async Task<IActionResult> Index()
         {
             var location = await Get();
             return View(location.AsEnumerable());
         }*/
-        public IActionResult Index()
-        {
-            var employee = GetAll();
-            return View(employee);
-        }
-
 
         //CREATE
         /*public async Task<IActionResult> Create()

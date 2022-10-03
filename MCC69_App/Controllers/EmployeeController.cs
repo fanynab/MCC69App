@@ -11,29 +11,26 @@ using System.Threading.Tasks;
 
 namespace MCC69_App.Controllers
 {
-    /*[Authorize(Roles = "Admin, Member")]*/
+    //[Authorize(Roles = "Admin, Member")]
     [Authorize]
     public class EmployeeController : BaseController<Employee, EmployeeRepository>
     {
-        DepartmentRepository departmentRepository;
-        JobRepository jobRepository;
-
-        public EmployeeController(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, JobRepository jobRepository) : base(employeeRepository)
+        public EmployeeController(EmployeeRepository employeeRepository) : base(employeeRepository)
         {
-            this.departmentRepository = departmentRepository;
-            this.jobRepository = jobRepository;
+            
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /*public async Task<IActionResult> Index()
         {
             var employee = await Get();
             return View(employee.AsEnumerable());
         }*/
-        public IActionResult Index()
-        {
-            return View();
-        }
-
 
         //CREATE
         /*public async Task<IActionResult> Create()

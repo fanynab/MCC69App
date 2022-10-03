@@ -14,28 +14,22 @@ namespace MCC69_App.Controllers
     [Authorize]
     public class JobHistoryController : BaseController<JobHistory, JobHistoryRepository>
     {
-        EmployeeRepository employeeRepository;
-        JobRepository jobRepository;
-        DepartmentRepository departmentRepository;
-
-        public JobHistoryController(JobHistoryRepository jobHistoryRepository, EmployeeRepository employeeRepository, JobRepository jobRepository, DepartmentRepository departmentRepository) : base(jobHistoryRepository)
+        public JobHistoryController(JobHistoryRepository jobHistoryRepository) : base(jobHistoryRepository)
         {
-            this.employeeRepository = employeeRepository;
-            this.jobRepository = jobRepository;
-            this.departmentRepository = departmentRepository;
+            
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /*public async Task<IActionResult> Index()
         {
             var jobHistory = await Get();
             return View(jobHistory.AsEnumerable());
         }*/
-        public IActionResult Index()
-        {
-            var employee = GetAll();
-            return View(employee);
-        }
-
 
         //CREATE
         /*public async Task<IActionResult> Create()

@@ -16,7 +16,7 @@
             },
         ],
         "ajax": {
-            url: "/Employee/GetAll",
+            url: "/Location/GetAll",
             type: "GET",
             dataSrc: "",
             dataType: "JSON"
@@ -31,56 +31,32 @@
             {
                 "data": "",
                 "render": function (data, type, row) {
-                    return `${row.firstName} ${row.lastName}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.email}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.phoneNumber}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.hireDate}`;
+                    return `${row.streetAddress}`;
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return `Rp.${row.salary},-`;
+                    return `${row.postalCode}`;
                 }
             },
             {
                 "data": "",
                 "render": function (data, type, row) {
-                    return `${row.job.jobTitle}`;
-                }
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return `${row.manager_Id}`;
+                    return `${row.city}`;
                 }
             },
             {
                 "data": "",
                 "render": function (data, type, row) {
-                    return `${row.department.name}`;
+                    return `${row.country.name}`;
                 }
             },
             {
                 "data": "",
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#editEmployee" onclick="Edit('${row.id}')"></button>
+                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#editLocation" onclick="Edit('${row.id}')"></button>
                             <button type="button" class="btn fa fa-remove btn-default" onclick="Delete('${row.id}')"></button>
                            `;
                 }
@@ -90,21 +66,17 @@
 });
 
 function Create() {
+    console.log("test")
     let btn = document.getElementById("buttonAdd");
     btn.addEventListener("click", function (e) {
         e.preventDefault();
         let obj = new Object();
-        obj.firstName = $("#addFirstName").val();
-        obj.lastName = $("#addLastName").val();
-        obj.email = $("#addEmail").val();
-        obj.phoneNumber = $("#addPhoneNumber").val();
-        obj.hireDate = $("#addHireDate").val();
-        obj.salary = $("#addSalary").val();
-        obj.job_Id = $("#addJobId").val();
-        obj.manager_Id = $("#addManagerId").val();
-        obj.department_Id = $("#addDepartmentId").val();
+        obj.streetAddress = $("#addStreetAddress").val();
+        obj.postalCode = $("#addPostalCode").val();
+        obj.city = $("#addCity").val();
+        obj.country_Id = $("#addCountryId").val();
         $.ajax({
-            url: "/Employee/Post",
+            url: "/Location/Post",
             type: "POST",
             data: obj
         }).done((result) => {
@@ -115,7 +87,7 @@ function Create() {
                     'Your data has been saved.',
                     'success'
                 )
-                $("#addEmployee").modal("toggle");
+                $("#addLocation").modal("toggle");
                 $('#dataTable').DataTable().ajax.reload();
             }
             else if (result == 400) {
@@ -133,35 +105,25 @@ function Create() {
 
 function Edit(id) {
     $.ajax({
-        url: `/Employee/Get/${id}`,
+        url: `/Location/Get/${id}`,
         type: "GET"
     }).done((data) => {
         console.log(data);
-        $("#firstName").val(data.firstName);
-        $("#lastName").val(data.lastName);
-        $("#email").val(data.email);
-        $("#phoneNumber").val(data.phoneNumber);
-        $("#hireDate").val(data.hireDate);
-        $("#salary").val(data.salary);
-        $("#jobId").val(data.job_Id);
-        $("#managerId").val(data.manager_Id);
-        $("#departmentId").val(data.department_Id);
+        $("#streetAddress").val(data.streetAddress);
+        $("#postalCode").val(data.postalCode);
+        $("#city").val(data.city);
+        $("#countryId").val(data.country_Id);
         let btn = document.getElementById("buttonEdit");
         btn.addEventListener("click", function (e) {
             e.preventDefault();
             let obj = new Object();
             obj.id = id;
-            obj.firstName = $("#firstName").val();
-            obj.lastName = $("#lastName").val();
-            obj.email = $("#email").val();
-            obj.phoneNumber = $("#phoneNumber").val();
-            obj.hireDate = $("#hireDate").val();
-            obj.salary = $("#salary").val();
-            obj.job_Id = $("#jobId").val();
-            obj.manager_Id = $("#managerId").val();
-            obj.department_Id = $("#departmentId").val();
+            obj.streetAddress = $("#streetAddress").val();
+            obj.postalCode = $("#postalCode").val();
+            obj.city = $("#city").val();
+            obj.country_Id = $("#countryId").val();
             $.ajax({
-                url: "/Employee/Put",
+                url: "/Location/Put",
                 type: "PUT",
                 data: obj
             }).done((result) => {
@@ -172,7 +134,7 @@ function Edit(id) {
                         'Your data has been saved.',
                         'success'
                     )
-                    $("#editEmployee").modal("toggle");
+                    $("#editLocation").modal("toggle");
                     $('#dataTable').DataTable().ajax.reload();
                 }
                 else if (result == 400) {
@@ -203,7 +165,7 @@ function Delete(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `/Employee/Delete/${id}`,
+                url: `/Location/Delete/${id}`,
                 type: "DELETE"
             }).done((result) => {
                 if (result == 200) {

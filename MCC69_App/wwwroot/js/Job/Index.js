@@ -16,7 +16,7 @@
             },
         ],
         "ajax": {
-            url: "/Employee/GetAll",
+            url: "/Job/GetAll",
             type: "GET",
             dataSrc: "",
             dataType: "JSON"
@@ -31,56 +31,26 @@
             {
                 "data": "",
                 "render": function (data, type, row) {
-                    return `${row.firstName} ${row.lastName}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.email}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.phoneNumber}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.hireDate}`;
+                    return `${row.jobTitle}`;
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return `Rp.${row.salary},-`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.job.jobTitle}`;
+                    return `${row.minSalary}`;
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return `${row.manager_Id}`;
-                }
-            },
-            {
-                "data": "",
-                "render": function (data, type, row) {
-                    return `${row.department.name}`;
+                    return `${row.maxSalary}`;
                 }
             },
             {
                 "data": "",
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#editEmployee" onclick="Edit('${row.id}')"></button>
+                            <button type="button" class="btn fa fa-edit btn-default" data-toggle="modal" data-target="#editJob" onclick="Edit('${row.id}')"></button>
                             <button type="button" class="btn fa fa-remove btn-default" onclick="Delete('${row.id}')"></button>
                            `;
                 }
@@ -94,17 +64,11 @@ function Create() {
     btn.addEventListener("click", function (e) {
         e.preventDefault();
         let obj = new Object();
-        obj.firstName = $("#addFirstName").val();
-        obj.lastName = $("#addLastName").val();
-        obj.email = $("#addEmail").val();
-        obj.phoneNumber = $("#addPhoneNumber").val();
-        obj.hireDate = $("#addHireDate").val();
-        obj.salary = $("#addSalary").val();
-        obj.job_Id = $("#addJobId").val();
-        obj.manager_Id = $("#addManagerId").val();
-        obj.department_Id = $("#addDepartmentId").val();
+        obj.jobTitle = $("#addJobTitle").val();
+        obj.minSalary = $("#addMinSalary").val();
+        obj.maxSalary = $("#addMaxSalary").val();
         $.ajax({
-            url: "/Employee/Post",
+            url: "/Job/Post",
             type: "POST",
             data: obj
         }).done((result) => {
@@ -115,7 +79,7 @@ function Create() {
                     'Your data has been saved.',
                     'success'
                 )
-                $("#addEmployee").modal("toggle");
+                $("#addJob").modal("toggle");
                 $('#dataTable').DataTable().ajax.reload();
             }
             else if (result == 400) {
@@ -133,35 +97,23 @@ function Create() {
 
 function Edit(id) {
     $.ajax({
-        url: `/Employee/Get/${id}`,
+        url: `/Job/Get/${id}`,
         type: "GET"
     }).done((data) => {
         console.log(data);
-        $("#firstName").val(data.firstName);
-        $("#lastName").val(data.lastName);
-        $("#email").val(data.email);
-        $("#phoneNumber").val(data.phoneNumber);
-        $("#hireDate").val(data.hireDate);
-        $("#salary").val(data.salary);
-        $("#jobId").val(data.job_Id);
-        $("#managerId").val(data.manager_Id);
-        $("#departmentId").val(data.department_Id);
+        $("#jobTitle").val(data.jobTitle);
+        $("#minSalary").val(data.minSalary);
+        $("#maxSalary").val(data.maxSalary);
         let btn = document.getElementById("buttonEdit");
         btn.addEventListener("click", function (e) {
             e.preventDefault();
             let obj = new Object();
             obj.id = id;
-            obj.firstName = $("#firstName").val();
-            obj.lastName = $("#lastName").val();
-            obj.email = $("#email").val();
-            obj.phoneNumber = $("#phoneNumber").val();
-            obj.hireDate = $("#hireDate").val();
-            obj.salary = $("#salary").val();
-            obj.job_Id = $("#jobId").val();
-            obj.manager_Id = $("#managerId").val();
-            obj.department_Id = $("#departmentId").val();
+            obj.jobTitle = $("#jobTitle").val();
+            obj.minSalary = $("#minSalary").val();
+            obj.maxSalary = $("#maxSalary").val();
             $.ajax({
-                url: "/Employee/Put",
+                url: "/Job/Put",
                 type: "PUT",
                 data: obj
             }).done((result) => {
@@ -172,7 +124,7 @@ function Edit(id) {
                         'Your data has been saved.',
                         'success'
                     )
-                    $("#editEmployee").modal("toggle");
+                    $("#editJob").modal("toggle");
                     $('#dataTable').DataTable().ajax.reload();
                 }
                 else if (result == 400) {
@@ -203,8 +155,8 @@ function Delete(id) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `/Employee/Delete/${id}`,
-                type: "DELETE"
+                url: `/Job/Delete/${id}`,
+                type: "DELETE",
             }).done((result) => {
                 if (result == 200) {
                     Swal.fire(

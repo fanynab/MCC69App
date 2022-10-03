@@ -4,55 +4,177 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="container">
+    <h1 align="center">Job History</h1>
+    <p>
+        <a class="btn btn-default" data-toggle="modal" data-target="#addJobHistory" onclick="Create()">Create New</a>
+    </p>
+    <div class="table-responsive">
+        <table class="table" id="dataTable">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Job</th>
+                    <th scope="col">Department</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="bodyJobHistory"></tbody>
+        </table>
+    </div>
+</div>
+
+
+@*CREATE*@
+<div class="modal fade" id="addJobHistory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Job History</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Employee_Id</label>
+                                <input class="form-control" type="number" id="addEmployeeId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Start Date</label>
+                                <input class="form-control" type="datetime-local" id="addStartDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">End Date</label>
+                                <input class="form-control" type="datetime-local" id="addEndDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Job_Id</label>
+                                <input class="form-control" type="number" id="addJobId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Department_Id</label>
+                                <input class="form-control" type="number" id="addDepartmentId" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" id="buttonAdd" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*EDIT*@
+<div class="modal fade" id="editJobHistory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Job History</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Employee_Id</label>
+                                <input class="form-control" type="number" id="employeeId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Start Date</label>
+                                <input class="form-control" type="datetime-local" id="startDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">End Date</label>
+                                <input class="form-control" type="datetime-local" id="endDate" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Job_Id</label>
+                                <input class="form-control" type="number" id="jobId" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Department_Id</label>
+                                <input class="form-control" type="number" id="departmentId" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save Changes" class="btn btn-primary" id="buttonEdit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+
+
+@section Scripts {
+    <script src="~/js/JobHistory/Index.js"></script>
 }
-    </tbody>
-</table>

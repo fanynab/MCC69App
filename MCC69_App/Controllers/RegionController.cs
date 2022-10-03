@@ -20,16 +20,17 @@ namespace MCC69_App.Controllers
 
         }
 
-        /*public async Task<IActionResult> Index()
-        {
-            var region = await GetAll();
-            return View(region.AsEnumerable());
-        }*/
         public IActionResult Index()
         {
             return View();
         }
 
+
+        /*public async Task<IActionResult> Index()
+        {
+            var region = await GetAll();
+            return View(region.AsEnumerable());
+        }*/
 
         //CREATE
         /*public IActionResult Create()

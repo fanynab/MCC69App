@@ -14,24 +14,22 @@ namespace MCC69_App.Controllers
     [Authorize]
     public class CountryController : BaseController<Country, CountryRepository>
     {
-        RegionRepository regionRepository;
-
-        public CountryController(CountryRepository countryRepository, RegionRepository regionRepository) : base(countryRepository)
+        public CountryController(CountryRepository countryRepository) : base(countryRepository)
         {
-            this.regionRepository = regionRepository;
+            
         }
+        
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /*public async Task<IActionResult> Index()
         {
             var country = await Get();
             return View(country.AsEnumerable());
         }*/
-        public IActionResult Index()
-        {
-            var employee = GetAll();
-            return View(employee);
-        }
-
 
         //CREATE
         /*public async Task<IActionResult> Create()

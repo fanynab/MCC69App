@@ -14,24 +14,22 @@ namespace MCC69_App.Controllers
     [Authorize]
     public class DepartmentController : BaseController<Department, DepartmentRepository>
     {
-        LocationRepository locationRepository;
-
-        public DepartmentController(DepartmentRepository departmentRepository, LocationRepository locationRepository) : base(departmentRepository)
+        public DepartmentController(DepartmentRepository departmentRepository) : base(departmentRepository)
         {
-            this.locationRepository = locationRepository;
+            
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /*public async Task<IActionResult> Index()
         {
             var department = await Get();
             return View(department.AsEnumerable());
         }*/
-        public IActionResult Index()
-        {
-            var employee = GetAll();
-            return View(employee);
-        }
-
 
         //CREATE
         /*public async Task<IActionResult> Create()
